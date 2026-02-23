@@ -1,0 +1,100 @@
+---
+---
+
+<section class="hero" id="hero">
+  <div class="container hero-inner">
+    <h1 class="glitch" data-text="Claude Code Guardrails">Claude Code Guardrails</h1>
+    <p class="hero-subtitle">
+      <span class="typed" id="typed-subtitle"></span><span class="cursor"></span>
+    </p>
+    <p class="hero-desc">
+      A system of hooks, agents, skills, and specification documents that encode your project's
+      architectural constraints into the Claude Code development loop.
+    </p>
+    <div class="hero-actions">
+      <a href="#quickstart" class="btn btn-primary">Get Started</a>
+      <a
+        href="https://github.com/viewyonder/claude-code-guardrails"
+        class="btn btn-secondary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 4rem;
+    position: relative;
+  }
+
+  .hero-inner {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--cyan);
+    margin-bottom: 2rem;
+    min-height: 1.8em;
+  }
+
+  .hero-desc {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 60ch;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.75em 1.75em;
+    border-radius: var(--radius);
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--bg-deep);
+  }
+
+  .btn-primary:hover {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(0, 255, 240, 0.4);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--bg-surface);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--cyan);
+    opacity: 1;
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="Blog — Claude Code Guardrails">
+  <div class="container blog-page">
+    <header class="blog-header">
+      <p class="section-label">Blog</p>
+      <h1>Writing</h1>
+      <p class="section-desc">Thoughts on architectural enforcement, AI-assisted development, and keeping codebases coherent.</p>
+    </header>
+
+    <div class="posts">
+      {posts.map((post) => {
+        const formattedDate = post.data.date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+        return (
+          <a href={`/blog/${post.slug}`} class="post-card card">
+            <div class="post-meta">
+              <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+              <span class="post-author">{post.data.author}</span>
+            </div>
+            <h2 class="post-title">{post.data.title}</h2>
+            {post.data.subtitle && <p class="post-subtitle">{post.data.subtitle}</p>}
+            <span class="post-read">Read &rarr;</span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .blog-page {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+
+  .blog-header {
+    margin-bottom: 3rem;
+  }
+
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 700px;
+  }
+
+  .post-card {
+    display: block;
+    color: inherit;
+  }
+
+  .post-card:hover {
+    opacity: 1;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .post-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-read {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--cyan);
+  }
+</style>

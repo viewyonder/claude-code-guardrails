@@ -1,0 +1,137 @@
+---
+---
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="logo-bracket">[</span>CCG<span class="logo-bracket">]</span>
+    </a>
+    <div class="nav-links">
+      <a href="/#architecture">Architecture</a>
+      <a href="/#hooks">Hooks</a>
+      <a href="/#examples">Examples</a>
+      <a href="/blog">Blog</a>
+      <a
+        href="https://github.com/viewyonder/claude-code-guardrails"
+        class="nav-github"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub
+      </a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 255, 240, 0.1);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .logo-bracket {
+    color: var(--cyan);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--cyan);
+    opacity: 1;
+  }
+
+  .nav-github {
+    background: var(--bg-surface);
+    padding: 0.4em 1em;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(0, 255, 240, 0.2);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: transform 0.2s;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 4rem;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: rgba(10, 10, 15, 0.95);
+      padding: 1rem var(--gap);
+      border-bottom: 1px solid var(--bg-surface);
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  toggle?.addEventListener('click', () => {
+    links?.classList.toggle('open');
+  });
+  // Close on link click
+  links?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => links?.classList.remove('open'));
+  });
+</script>
