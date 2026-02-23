@@ -1,0 +1,89 @@
+---
+---
+
+<section id="examples">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">In Practice</p>
+      <h2 class="section-title">Two Worked Examples</h2>
+      <p class="section-desc">
+        The same template adapted to two different stacks, showing how hooks
+        and constraints change while the structure stays the same.
+      </p>
+
+      <div class="examples-grid grid-2">
+        <div class="example-card card">
+          <div class="example-header">
+            <h3>Express + PostgreSQL</h3>
+            <span class="example-tag">REST API</span>
+          </div>
+          <div class="terminal">
+            <div class="terminal-header">
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+              <span class="terminal-title">CLAUDE.md</span>
+            </div>
+            <div class="terminal-body">
+              <span class="comment"># Forbidden imports</span><br />
+              No eval(), no child_process in routes<br /><br />
+              <span class="comment"># Route prefix</span><br />
+              All routes: /api/v1/*<br /><br />
+              <span class="comment"># Data isolation</span><br />
+              PostgreSQL queries filter by org_id<br /><br />
+              <span class="comment"># Boundary</span><br />
+              Business logic in services/, not routes/
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card card">
+          <div class="example-header">
+            <h3>Next.js + Prisma</h3>
+            <span class="example-tag">Full Stack</span>
+          </div>
+          <div class="terminal">
+            <div class="terminal-header">
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+              <span class="terminal-title">CLAUDE.md</span>
+            </div>
+            <div class="terminal-body">
+              <span class="comment"># Forbidden imports</span><br />
+              No Prisma in client components<br /><br />
+              <span class="comment"># Server/client boundary</span><br />
+              'use server' in server actions<br /><br />
+              <span class="comment"># Data isolation</span><br />
+              Prisma queries filter by teamId<br /><br />
+              <span class="comment"># Boundary</span><br />
+              Prisma only in lib/db/
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .example-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .example-header h3 {
+    font-size: 1.15rem;
+  }
+
+  .example-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--bg-surface);
+    padding: 0.2em 0.6em;
+    border-radius: var(--radius-sm);
+  }
+</style>

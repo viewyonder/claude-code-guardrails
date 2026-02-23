@@ -1,0 +1,102 @@
+---
+const layers = [
+  {
+    name: 'Hooks',
+    icon: '⛔',
+    desc: 'Enforce known constraints at the moment of creation. Block, warn, or inform.',
+    when: 'Every file edit / write / commit',
+    color: 'var(--red)',
+  },
+  {
+    name: 'Agents',
+    icon: '🔍',
+    desc: 'Detect drift and review architecture. Read-only investigation and reporting.',
+    when: 'On demand via skills',
+    color: 'var(--amber)',
+  },
+  {
+    name: 'SPEC Docs',
+    icon: '📋',
+    desc: 'Define "correct" with falsifiable claims. Mechanically verifiable against code.',
+    when: 'Referenced by agents & humans',
+    color: 'var(--green)',
+  },
+  {
+    name: 'Skills',
+    icon: '⚡',
+    desc: 'Multi-step workflows with compliance built in. Architecture by construction.',
+    when: 'User-invoked (/check-drift)',
+    color: 'var(--cyan)',
+  },
+];
+---
+
+<section id="architecture">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The System</p>
+      <h2 class="section-title">Four-Layer Architecture</h2>
+      <p class="section-desc">
+        Each layer operates at a different point in the development cycle.
+        None alone is sufficient. Together, architectural knowledge becomes active.
+      </p>
+      <div class="arch-grid">
+        {layers.map((layer, i) => (
+          <div class="arch-card card connector" style={`--accent: ${layer.color}`}>
+            <div class="arch-number">{String(i + 1).padStart(2, '0')}</div>
+            <h3 class="arch-name">{layer.name}</h3>
+            <p class="arch-desc">{layer.desc}</p>
+            <p class="arch-when">{layer.when}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--gap);
+  }
+
+  .arch-card {
+    position: relative;
+    border-top: 3px solid var(--accent);
+  }
+
+  .arch-number {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .arch-name {
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .arch-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .arch-when {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .connector::after {
+      display: none;
+    }
+  }
+</style>

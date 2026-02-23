@@ -1,0 +1,306 @@
+/* === Glitch Text Effect === */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.glitch::before {
+  color: var(--cyan);
+  animation: glitch-1 3s infinite linear alternate-reverse;
+  clip-path: inset(0 0 80% 0);
+}
+
+.glitch::after {
+  color: var(--magenta);
+  animation: glitch-2 2.5s infinite linear alternate-reverse;
+  clip-path: inset(80% 0 0 0);
+}
+
+@keyframes glitch-1 {
+  0%, 90% { transform: translate(0); }
+  91% { transform: translate(-2px, 1px); }
+  92% { transform: translate(2px, -1px); }
+  93% { transform: translate(-1px, 2px); }
+  94%, 100% { transform: translate(0); }
+}
+
+@keyframes glitch-2 {
+  0%, 88% { transform: translate(0); }
+  89% { transform: translate(2px, 1px); }
+  90% { transform: translate(-2px, -1px); }
+  91% { transform: translate(1px, -2px); }
+  92%, 100% { transform: translate(0); }
+}
+
+/* === Scanline Overlay === */
+.scanlines {
+  position: relative;
+}
+
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* === Circuit Board Background === */
+.circuit-bg {
+  position: relative;
+}
+
+.circuit-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 240, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 240, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* === Terminal Cursor === */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--cyan);
+  margin-left: 4px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* === Terminal Block === */
+.terminal {
+  background: var(--bg-deep);
+  border: 1px solid var(--bg-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminal-dot:nth-child(1) { background: #ff5f57; }
+.terminal-dot:nth-child(2) { background: #febc2e; }
+.terminal-dot:nth-child(3) { background: #28c840; }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.terminal-body {
+  padding: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+.terminal-body .prompt {
+  color: var(--green);
+  user-select: none;
+}
+
+.terminal-body .comment {
+  color: var(--text-muted);
+}
+
+.terminal-body .output {
+  color: var(--text-secondary);
+}
+
+/* === Glow Effects === */
+.glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 255, 240, 0.5);
+}
+
+.glow-border {
+  box-shadow: 0 0 20px rgba(0, 255, 240, 0.1),
+              inset 0 0 20px rgba(0, 255, 240, 0.02);
+}
+
+/* === Hook Output Block === */
+.hook-output {
+  background: var(--bg-deep);
+  border-left: 3px solid var(--red);
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 1rem 0;
+}
+
+.hook-output.warn {
+  border-left-color: var(--amber);
+}
+
+.hook-output.info {
+  border-left-color: var(--cyan);
+}
+
+/* === Connector Lines (Architecture Cards) === */
+.connector {
+  position: relative;
+}
+
+.connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -1rem;
+  width: 2rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+}
+
+.connector:last-child::after {
+  display: none;
+}
+
+/* === Pull Quote === */
+.pull-quote {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--cyan);
+  border-left: 3px solid var(--magenta);
+  padding-left: 1.5rem;
+  margin: var(--gap) 0;
+  font-style: italic;
+}
+
+/* === Fade-in animation === */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.6s ease forwards;
+}
+
+/* === Blog Prose === */
+.prose {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.prose h2 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  color: var(--cyan);
+}
+
+.prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--magenta);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.prose em {
+  color: var(--cyan);
+  font-style: italic;
+}
+
+.prose strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--bg-surface);
+  margin: 2rem 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.prose th {
+  font-family: var(--font-mono);
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 2px solid var(--bg-surface);
+  color: var(--cyan);
+}
+
+.prose td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--bg-surface);
+}
+
+.prose pre {
+  margin: 1.5rem 0;
+}
