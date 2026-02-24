@@ -1,0 +1,123 @@
+---
+import { faqs } from '../data/faqs';
+
+interface Props {
+  tag?: string;
+  limit?: number;
+  showAllLink?: boolean;
+}
+
+const { tag, limit, showAllLink = false } = Astro.props;
+
+let filtered = tag ? faqs.filter(f => f.tags.includes(tag)) : faqs;
+if (limit) filtered = filtered.slice(0, limit);
+---
+
+<div class="faq-list">
+  {filtered.map(faq => (
+    <details class="faq-item">
+      <summary class="faq-question">
+        <span class="faq-q-text">{faq.question}</span>
+        <span class="faq-chevron">&#9662;</span>
+      </summary>
+      <div class="faq-answer">
+        <p set:html={faq.answer} />
+        <div class="faq-tags">
+          {faq.tags.map(t => (
+            <span class="badge badge-info">{t}</span>
+          ))}
+        </div>
+      </div>
+    </details>
+  ))}
+</div>
+
+{showAllLink && (
+  <a href="/faq" class="faq-view-all">View all FAQs &rarr;</a>
+)}
+
+<style>
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .faq-item {
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .faq-item[open] {
+    border-color: rgba(0, 255, 240, 0.2);
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    transition: color 0.2s;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question:hover {
+    color: var(--cyan);
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0 1.25rem 1rem;
+    border-top: 1px solid var(--bg-surface);
+  }
+
+  .faq-answer p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 1rem 0 0.75rem;
+  }
+
+  .faq-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .faq-tags .badge {
+    font-size: 0.6rem;
+  }
+
+  .faq-view-all {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--cyan);
+  }
+
+  .faq-view-all:hover {
+    opacity: 0.8;
+  }
+</style>

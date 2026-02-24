@@ -7,6 +7,7 @@ import Hooks from '../components/Hooks.astro';
 import Agents from '../components/Agents.astro';
 import Examples from '../components/Examples.astro';
 import QuickStart from '../components/QuickStart.astro';
+import FAQ from '../components/FAQ.astro';
 import BlogCTA from '../components/BlogCTA.astro';
 ---
 
@@ -18,5 +19,10 @@ import BlogCTA from '../components/BlogCTA.astro';
   <Agents />
   <Examples />
   <QuickStart />
+  <section class="container faq-section" id="faq">
+    <p class="section-label">FAQ</p>
+    <h2>Frequently Asked Questions</h2>
+    <FAQ tag="general" limit={4} showAllLink={true} />
+  </section>
   <BlogCTA />
 </Base>
