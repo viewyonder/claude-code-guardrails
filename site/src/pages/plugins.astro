@@ -1,0 +1,664 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Plugins — Claude Coherence" description="Install, manage, and create Claude Code plugins for architectural guardrails.">
+  <article class="container guide">
+    <header class="guide-header">
+      <a href="/" class="back-link">&larr; Home</a>
+      <p class="section-label">Reference</p>
+      <h1>Plugins</h1>
+      <p class="guide-subtitle">
+        Install, manage, and create Claude Code plugins for architectural guardrails.
+      </p>
+    </header>
+
+    <nav class="toc">
+      <p class="toc-title">On this page</p>
+      <ul>
+        <li><a href="#why-plugins">Why plugins</a></li>
+        <li><a href="#whats-in-a-plugin">What's in a plugin</a></li>
+        <li><a href="#installing">Installing</a></li>
+        <li><a href="#testing-locally">Testing locally</a></li>
+        <li><a href="#updating">Updating</a></li>
+        <li><a href="#managing">Managing</a></li>
+        <li><a href="#creating-your-own">Creating your own</a></li>
+      </ul>
+    </nav>
+
+    <div class="prose">
+
+      <!-- ============================================ -->
+      <section id="why-plugins" class="guide-section">
+        <h2>Why Plugins</h2>
+        <p>
+          Plugins are the fastest way to get Coherence into your project.
+          Compared to manually copying files:
+        </p>
+
+        <div class="benefit-list">
+          <div class="benefit">
+            <span class="benefit-icon">&#9889;</span>
+            <div>
+              <strong>One-command install</strong>
+              <p>No cloning repos or copying directories. Two commands and you're running.</p>
+            </div>
+          </div>
+          <div class="benefit">
+            <span class="benefit-icon">&#128260;</span>
+            <div>
+              <strong>Updates</strong>
+              <p>Get new hooks, improved wizards, and bug fixes with a single update command.</p>
+            </div>
+          </div>
+          <div class="benefit">
+            <span class="benefit-icon">&#128101;</span>
+            <div>
+              <strong>Team sharing</strong>
+              <p>Install at project scope and commit the config — every team member gets the same guardrails.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="whats-in-a-plugin" class="guide-section">
+        <h2>What's in a Plugin</h2>
+        <p>
+          A Claude Code plugin is a directory containing a manifest and the skills, hooks, and agents it provides.
+        </p>
+
+        <div class="file-tree">
+          <div class="file-tree-header">coherence-plugin/</div>
+          <div class="file-tree-item depth-0"><span class="file-icon">&#128196;</span> plugin.json <span class="file-desc">— plugin manifest</span></div>
+          <div class="file-tree-item depth-0"><span class="file-icon">&#128193;</span> skills/</div>
+          <div class="file-tree-item depth-1"><span class="file-icon">&#128193;</span> coherence/</div>
+          <div class="file-tree-item depth-2">SKILL.md <span class="file-desc">— the /coherence wizard</span></div>
+        </div>
+
+        <h3>plugin.json schema</h3>
+        <p>The manifest tells Claude Code what the plugin provides and how to load it.</p>
+
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">plugin.json</span>
+          </div>
+          <div class="terminal-body">
+            <span class="json-brace">{`{`}</span><br />
+            &nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"coherence"</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"version"</span>: <span class="json-string">"1.0.0"</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"description"</span>: <span class="json-string">"Architectural guardrails setup wizard"</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"skills"</span>: [<span class="json-string">"skills/coherence"</span>],<br />
+            &nbsp;&nbsp;<span class="json-key">"homepage"</span>: <span class="json-string">"https://claude.viewyonder.com"</span><br />
+            <span class="json-brace">{`}`}</span>
+          </div>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>name</code>
+            <span>Plugin identifier. Used in <code>/plugin install &lt;name&gt;</code>.</span>
+          </div>
+          <div class="schema-row">
+            <code>version</code>
+            <span>Semver version string.</span>
+          </div>
+          <div class="schema-row">
+            <code>description</code>
+            <span>Short description shown in plugin listings.</span>
+          </div>
+          <div class="schema-row">
+            <code>skills</code>
+            <span>Array of skill directory paths relative to the plugin root.</span>
+          </div>
+          <div class="schema-row">
+            <code>homepage</code>
+            <span>URL for documentation or project page.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="installing" class="guide-section">
+        <h2>Installing</h2>
+        <p>
+          Installation is two steps: add the marketplace source, then install the plugin.
+        </p>
+
+        <h3>Step 1: Add the marketplace</h3>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">Claude Code</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">&gt;</span> /plugin marketplace add viewyonder/claude-coherence
+          </div>
+        </div>
+        <p>
+          This tells Claude Code to look at the <code>marketplace.json</code> in the
+          <code>viewyonder/claude-coherence</code> GitHub repository for available plugins.
+        </p>
+
+        <h3>Step 2: Install the plugin</h3>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">Claude Code</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">&gt;</span> /plugin install coherence
+          </div>
+        </div>
+
+        <h3>Scope options</h3>
+        <p>
+          Plugins can be installed at three scopes:
+        </p>
+        <div class="scope-list">
+          <div class="scope">
+            <code>user</code>
+            <span class="scope-default">default</span>
+            <p>Available in all your projects. Stored in <code>~/.claude/plugins/</code>.</p>
+          </div>
+          <div class="scope">
+            <code>project</code>
+            <p>Shared via git. Stored in <code>.claude/plugins/</code>. Team members get it automatically.</p>
+          </div>
+          <div class="scope">
+            <code>local</code>
+            <p>Project-specific, gitignored. Stored in <code>.claude/plugins.local/</code>.</p>
+          </div>
+        </div>
+
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">Claude Code</span>
+          </div>
+          <div class="terminal-body">
+            <span class="comment"># Install at project scope (shared with team)</span><br />
+            <span class="prompt">&gt;</span> /plugin install coherence --scope project
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="testing-locally" class="guide-section">
+        <h2>Testing Locally</h2>
+        <p>
+          During development, load a plugin directly from a local directory
+          without installing it through the marketplace.
+        </p>
+
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">bash</span>
+          </div>
+          <div class="terminal-body">
+            <span class="comment"># Load plugin from a local path</span><br />
+            <span class="prompt">$</span> claude --plugin-dir ./plugins/coherence-plugin
+          </div>
+        </div>
+
+        <p>
+          This is useful when you're developing a custom plugin or testing changes
+          before publishing. The plugin is available for the duration of the session.
+        </p>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="updating" class="guide-section">
+        <h2>Updating</h2>
+        <p>
+          Update installed plugins to get new hooks, improved wizards, and bug fixes.
+        </p>
+
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">Claude Code</span>
+          </div>
+          <div class="terminal-body">
+            <span class="comment"># Update all plugins from all marketplaces</span><br />
+            <span class="prompt">&gt;</span> /plugin marketplace update<br />
+            <br />
+            <span class="comment"># Update a specific plugin</span><br />
+            <span class="prompt">&gt;</span> /plugin update coherence
+          </div>
+        </div>
+
+        <p>
+          Version bumps in the <code>marketplace.json</code> are picked up on update.
+          The plugin's <code>plugin.json</code> version field is used for comparison.
+        </p>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="managing" class="guide-section">
+        <h2>Managing</h2>
+        <p>
+          Common commands for managing installed plugins.
+        </p>
+
+        <div class="command-list">
+          <div class="command-row">
+            <code>/plugin list</code>
+            <span>Show all installed plugins and their scopes.</span>
+          </div>
+          <div class="command-row">
+            <code>/plugin enable coherence</code>
+            <span>Enable a disabled plugin.</span>
+          </div>
+          <div class="command-row">
+            <code>/plugin disable coherence</code>
+            <span>Temporarily disable without uninstalling.</span>
+          </div>
+          <div class="command-row">
+            <code>/plugin uninstall coherence</code>
+            <span>Remove the plugin entirely.</span>
+          </div>
+          <div class="command-row">
+            <code>/plugin marketplace list</code>
+            <span>Show configured marketplace sources.</span>
+          </div>
+          <div class="command-row">
+            <code>/plugin marketplace remove viewyonder/claude-coherence</code>
+            <span>Remove a marketplace source.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="creating-your-own" class="guide-section">
+        <h2>Creating Your Own</h2>
+        <p>
+          You can fork the Coherence plugin or create a completely custom one for your
+          organization's specific needs.
+        </p>
+
+        <h3>1. Create the plugin directory</h3>
+        <div class="file-tree">
+          <div class="file-tree-header">my-plugin/</div>
+          <div class="file-tree-item depth-0"><span class="file-icon">&#128196;</span> plugin.json</div>
+          <div class="file-tree-item depth-0"><span class="file-icon">&#128193;</span> skills/</div>
+          <div class="file-tree-item depth-1"><span class="file-icon">&#128193;</span> my-skill/</div>
+          <div class="file-tree-item depth-2">SKILL.md <span class="file-desc">— skill instructions</span></div>
+        </div>
+
+        <h3>2. Write plugin.json</h3>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">plugin.json</span>
+          </div>
+          <div class="terminal-body">
+            <span class="json-brace">{`{`}</span><br />
+            &nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"my-plugin"</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"version"</span>: <span class="json-string">"1.0.0"</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"description"</span>: <span class="json-string">"My custom guardrails"</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"skills"</span>: [<span class="json-string">"skills/my-skill"</span>]<br />
+            <span class="json-brace">{`}`}</span>
+          </div>
+        </div>
+
+        <h3>3. Create a marketplace.json</h3>
+        <p>
+          To distribute via a marketplace, add a <code>marketplace.json</code> at the root of your GitHub repository.
+        </p>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">marketplace.json</span>
+          </div>
+          <div class="terminal-body">
+            <span class="json-brace">{`{`}</span><br />
+            &nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"My Organization Plugins"</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"description"</span>: <span class="json-string">"Internal guardrails plugins"</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"owner"</span>: <span class="json-brace">{`{`}</span> <span class="json-key">"name"</span>: <span class="json-string">"My Org"</span> <span class="json-brace">{`}`}</span>,<br />
+            &nbsp;&nbsp;<span class="json-key">"plugins"</span>: [<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-brace">{`{`}</span><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"my-plugin"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"description"</span>: <span class="json-string">"My custom guardrails"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"version"</span>: <span class="json-string">"1.0.0"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"source"</span>: <span class="json-string">"./plugins/my-plugin"</span><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-brace">{`}`}</span><br />
+            &nbsp;&nbsp;]<br />
+            <span class="json-brace">{`}`}</span>
+          </div>
+        </div>
+
+        <h3>4. Test locally</h3>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">bash</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">$</span> claude --plugin-dir ./plugins/my-plugin
+          </div>
+        </div>
+
+        <h3>5. Publish</h3>
+        <p>
+          Push your repository to GitHub. Users install with:
+        </p>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">Claude Code</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">&gt;</span> /plugin marketplace add your-org/your-repo<br />
+            <span class="prompt">&gt;</span> /plugin install my-plugin
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </article>
+</Base>
+
+<style>
+  .guide {
+    padding-top: 7rem;
+    padding-bottom: 4rem;
+  }
+
+  .guide-header {
+    margin-bottom: 3rem;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+
+  .guide-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    max-width: 50ch;
+  }
+
+  /* Table of contents */
+  .toc {
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+    max-width: 500px;
+  }
+
+  .toc-title {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .toc ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .toc li {
+    margin-bottom: 0.4rem;
+  }
+
+  .toc a {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .toc a:hover {
+    color: var(--cyan);
+    opacity: 1;
+  }
+
+  /* Sections */
+  .guide-section {
+    padding: 0;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+
+  .guide-section h2 {
+    margin-bottom: 1rem;
+  }
+
+  .guide-section h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  /* Benefits */
+  .benefit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .benefit {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+  }
+
+  .benefit-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .benefit strong {
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+  }
+
+  .benefit p {
+    font-size: 0.9rem;
+    margin: 0.25rem 0 0;
+  }
+
+  /* Scope list */
+  .scope-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .scope {
+    padding: 0.75rem 1rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+  }
+
+  .scope code {
+    color: var(--cyan);
+    font-size: 0.9rem;
+  }
+
+  .scope-default {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    background: rgba(0, 255, 136, 0.12);
+    color: var(--green);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    padding: 0.1em 0.5em;
+    border-radius: var(--radius-sm);
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .scope p {
+    font-size: 0.85rem;
+    margin: 0.25rem 0 0;
+    color: var(--text-muted);
+  }
+
+  /* Command list */
+  .command-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .command-row {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.75rem 1rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+  }
+
+  .command-row code {
+    font-size: 0.85rem;
+    color: var(--cyan);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .command-row span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* Schema table */
+  .schema-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .schema-row {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.5rem 1rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+  }
+
+  .schema-row code {
+    font-size: 0.85rem;
+    color: var(--cyan);
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 6rem;
+  }
+
+  .schema-row span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* File tree */
+  .file-tree {
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin: 1.5rem 0;
+    max-width: 550px;
+  }
+
+  .file-tree-header {
+    color: var(--cyan);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--bg-surface);
+  }
+
+  .file-tree-item {
+    padding: 0.2rem 0;
+    color: var(--text-primary);
+  }
+
+  .depth-0 { padding-left: 0; }
+  .depth-1 { padding-left: 1.5rem; }
+  .depth-2 { padding-left: 3rem; }
+
+  .file-icon {
+    margin-right: 0.4rem;
+  }
+
+  .file-desc {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+  }
+
+  /* JSON syntax */
+  .json-key {
+    color: var(--cyan);
+  }
+
+  .json-string {
+    color: var(--green);
+  }
+
+  .json-brace {
+    color: var(--text-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .command-row {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .schema-row {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>

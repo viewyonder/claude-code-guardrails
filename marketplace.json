@@ -1,0 +1,14 @@
+{
+  "name": "View Yonder Plugins",
+  "description": "Architectural guardrails for Claude Code",
+  "owner": { "name": "View Yonder", "url": "https://viewyonder.com" },
+  "plugins": [
+    {
+      "name": "coherence",
+      "description": "Interactive setup wizard that generates a complete .claude/ guardrails system customized to your project.",
+      "version": "1.0.0",
+      "source": "./plugins/coherence-plugin",
+      "homepage": "https://claude.viewyonder.com"
+    }
+  ]
+}

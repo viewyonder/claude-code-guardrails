@@ -2,22 +2,22 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Getting Started — Claude Code Guardrails" description="Set up architectural guardrails for Claude Code in your project. Two paths: interactive wizard or manual template.">
+<Base title="Getting Started — Claude Coherence" description="Two commands to architectural guardrails. Install the plugin, run /coherence, and you're enforcing architecture immediately.">
   <article class="container guide">
     <header class="guide-header">
       <a href="/" class="back-link">&larr; Home</a>
       <p class="section-label">Getting Started</p>
-      <h1>Set Up Guardrails</h1>
+      <h1>Get Started</h1>
       <p class="guide-subtitle">
-        Two paths to architectural enforcement. Pick the one that fits.
+        Two commands to architectural guardrails.
       </p>
     </header>
 
     <nav class="toc">
       <p class="toc-title">On this page</p>
       <ul>
-        <li><a href="#path-a">Path A: Interactive setup (<code>/coherence</code>)</a></li>
-        <li><a href="#path-b">Path B: Manual template</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#what-happens">What happens</a></li>
         <li><a href="#what-you-get">What you get</a></li>
         <li><a href="#project-types">Supported project types</a></li>
         <li><a href="#next-steps">Next steps</a></li>
@@ -27,32 +27,43 @@ import Base from '../layouts/Base.astro';
     <div class="prose">
 
       <!-- ============================================ -->
-      <section id="path-a" class="guide-section">
+      <section id="install" class="guide-section">
         <div class="path-badge path-badge-recommended">Recommended</div>
-        <h2>Path A: Interactive Setup</h2>
+        <h2>Install</h2>
         <p>
-          The <code>/coherence</code> command is an interactive wizard that scans your project,
-          asks a few questions, and generates a complete guardrails system — hooks, agents, skills,
-          <code>CLAUDE.md</code>, and <code>settings.local.json</code> — customized to your stack and project type.
+          The Coherence plugin adds the <code>/coherence</code> command to Claude Code.
+          It scans your project, asks a few questions, and generates a complete guardrails system —
+          hooks, agents, skills, <code>CLAUDE.md</code>, and <code>settings.local.json</code> —
+          customized to your stack.
         </p>
 
-        <h3>1. Copy the skill into your project</h3>
+        <h3>1. Add the marketplace</h3>
         <div class="terminal">
           <div class="terminal-header">
             <span class="terminal-dot"></span>
             <span class="terminal-dot"></span>
             <span class="terminal-dot"></span>
-            <span class="terminal-title">bash</span>
+            <span class="terminal-title">Claude Code</span>
           </div>
           <div class="terminal-body">
-            <span class="comment"># From your project root</span><br />
-            <span class="prompt">$</span> mkdir -p .claude/skills/coherence<br />
-            <span class="prompt">$</span> curl -o .claude/skills/coherence/SKILL.md \<br />
-            &nbsp;&nbsp;https://raw.githubusercontent.com/viewyonder/claude-code-guardrails/master/template/.claude/skills/coherence/SKILL.md
+            <span class="prompt">&gt;</span> /plugin marketplace add viewyonder/claude-coherence
           </div>
         </div>
 
-        <h3>2. Run <code>/coherence</code></h3>
+        <h3>2. Install the plugin</h3>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">Claude Code</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">&gt;</span> /plugin install coherence
+          </div>
+        </div>
+
+        <h3>3. Run <code>/coherence</code></h3>
         <p>Open Claude Code in your project and run:</p>
         <div class="terminal">
           <div class="terminal-header">
@@ -66,9 +77,9 @@ import Base from '../layouts/Base.astro';
           </div>
         </div>
 
-        <h3>3. Answer the questions</h3>
+        <h3>4. Answer the questions</h3>
         <p>
-          The wizard runs in 6 phases. Most projects need 5-8 answers total.
+          The wizard runs in 7 phases. Most projects need 5-8 answers total.
         </p>
 
         <div class="phase-list">
@@ -136,63 +147,97 @@ import Base from '../layouts/Base.astro';
       </section>
 
       <!-- ============================================ -->
-      <section id="path-b" class="guide-section">
-        <h2>Path B: Manual Template</h2>
+      <section id="manual" class="guide-section">
+        <details class="manual-details">
+          <summary class="manual-summary">
+            <h2>Alternative: Manual Template</h2>
+            <p>Full control — copy the template and customize everything by hand.</p>
+          </summary>
+
+          <div class="manual-content">
+            <h3>1. Copy the template</h3>
+            <div class="terminal">
+              <div class="terminal-header">
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+                <span class="terminal-title">bash</span>
+              </div>
+              <div class="terminal-body">
+                <span class="prompt">$</span> cd /path/to/your/project<br />
+                <br />
+                <span class="comment"># Clone the repo (or download the template/ directory)</span><br />
+                <span class="prompt">$</span> git clone https://github.com/viewyonder/claude-coherence.git /tmp/ccg<br />
+                <br />
+                <span class="comment"># Copy the .claude directory</span><br />
+                <span class="prompt">$</span> cp -r /tmp/ccg/template/.claude .<br />
+                <br />
+                <span class="comment"># Copy CLAUDE.md template</span><br />
+                <span class="prompt">$</span> cp /tmp/ccg/template/CLAUDE.md .<br />
+                <br />
+                <span class="comment"># Copy SPEC + memory templates</span><br />
+                <span class="prompt">$</span> mkdir -p docs<br />
+                <span class="prompt">$</span> cp /tmp/ccg/template/docs/*.md docs/
+              </div>
+            </div>
+
+            <h3>2. Customize CLAUDE.md</h3>
+            <p>
+              Replace every <code>{`{{PLACEHOLDER}}`}</code> marker with your project's values.
+              The file has HTML comments explaining each one.
+            </p>
+
+            <h3>3. Configure hooks</h3>
+            <p>
+              Each hook has a <code>// === CONFIGURATION ===</code> block at the top.
+              Edit the constants for your project's APIs, file paths, and boundaries.
+              Remove hooks you don't need.
+            </p>
+
+            <h3>4. Update settings.local.json</h3>
+            <p>
+              Remove entries for any hooks you deleted. The file lives at
+              <code>.claude/settings.local.json</code> — every hook referenced there must
+              have a matching <code>.cjs</code> file.
+            </p>
+
+            <h3>5. Create your first SPEC</h3>
+            <p>
+              Copy a SPEC template from <code>docs/</code>, fill in your actual components,
+              and run <code>/check-drift</code> to verify.
+            </p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="what-happens" class="guide-section">
+        <h2>What Happens</h2>
         <p>
-          If you prefer full control, copy the template directory and customize everything by hand.
+          After setup, your <code>.claude/</code> directory makes architectural constraints
+          active during every development session.
         </p>
 
-        <h3>1. Copy the template</h3>
-        <div class="terminal">
-          <div class="terminal-header">
-            <span class="terminal-dot"></span>
-            <span class="terminal-dot"></span>
-            <span class="terminal-dot"></span>
-            <span class="terminal-title">bash</span>
+        <div class="flow-diagram">
+          <div class="flow-step">
+            <div class="flow-label">You (or Claude) edit a file</div>
           </div>
-          <div class="terminal-body">
-            <span class="prompt">$</span> cd /path/to/your/project<br />
-            <br />
-            <span class="comment"># Clone the repo (or download the template/ directory)</span><br />
-            <span class="prompt">$</span> git clone https://github.com/viewyonder/claude-code-guardrails.git /tmp/ccg<br />
-            <br />
-            <span class="comment"># Copy the .claude directory</span><br />
-            <span class="prompt">$</span> cp -r /tmp/ccg/template/.claude .<br />
-            <br />
-            <span class="comment"># Copy CLAUDE.md template</span><br />
-            <span class="prompt">$</span> cp /tmp/ccg/template/CLAUDE.md .<br />
-            <br />
-            <span class="comment"># Copy SPEC + memory templates</span><br />
-            <span class="prompt">$</span> mkdir -p docs<br />
-            <span class="prompt">$</span> cp /tmp/ccg/template/docs/*.md docs/
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="flow-label">Hooks run automatically</div>
+            <div class="flow-detail">Block violations, warn about concerns, suggest tests</div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="flow-label">Claude sees the feedback inline</div>
+            <div class="flow-detail">Blocked edits are rejected. Warnings appear in context.</div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="flow-label">On demand: run <code>/check-drift</code> or <code>/check-architecture</code></div>
+            <div class="flow-detail">Agents scan the full codebase against SPEC docs and principles.</div>
           </div>
         </div>
-
-        <h3>2. Customize CLAUDE.md</h3>
-        <p>
-          Replace every <code>{`{{PLACEHOLDER}}`}</code> marker with your project's values.
-          The file has HTML comments explaining each one.
-        </p>
-
-        <h3>3. Configure hooks</h3>
-        <p>
-          Each hook has a <code>// === CONFIGURATION ===</code> block at the top.
-          Edit the constants for your project's APIs, file paths, and boundaries.
-          Remove hooks you don't need.
-        </p>
-
-        <h3>4. Update settings.local.json</h3>
-        <p>
-          Remove entries for any hooks you deleted. The file lives at
-          <code>.claude/settings.local.json</code> — every hook referenced there must
-          have a matching <code>.cjs</code> file.
-        </p>
-
-        <h3>5. Create your first SPEC</h3>
-        <p>
-          Copy a SPEC template from <code>docs/</code>, fill in your actual components,
-          and run <code>/check-drift</code> to verify.
-        </p>
       </section>
 
       <!-- ============================================ -->
@@ -219,28 +264,6 @@ import Base from '../layouts/Base.astro';
           <div class="file-tree-item depth-1"><span class="file-icon">&#128193;</span> skills/</div>
           <div class="file-tree-item depth-2"><span class="file-icon">&#128193;</span> check-drift/</div>
           <div class="file-tree-item depth-2"><span class="file-icon">&#128193;</span> check-architecture/</div>
-        </div>
-
-        <h3>How it works at development time</h3>
-        <div class="flow-diagram">
-          <div class="flow-step">
-            <div class="flow-label">You (or Claude) edit a file</div>
-          </div>
-          <div class="flow-arrow">&darr;</div>
-          <div class="flow-step">
-            <div class="flow-label">Hooks run automatically</div>
-            <div class="flow-detail">Block violations, warn about concerns, suggest tests</div>
-          </div>
-          <div class="flow-arrow">&darr;</div>
-          <div class="flow-step">
-            <div class="flow-label">Claude sees the feedback inline</div>
-            <div class="flow-detail">Blocked edits are rejected. Warnings appear in context.</div>
-          </div>
-          <div class="flow-arrow">&darr;</div>
-          <div class="flow-step">
-            <div class="flow-label">On demand: run <code>/check-drift</code> or <code>/check-architecture</code></div>
-            <div class="flow-detail">Agents scan the full codebase against SPEC docs and principles.</div>
-          </div>
         </div>
       </section>
 
@@ -340,6 +363,10 @@ import Base from '../layouts/Base.astro';
           <div class="next-step">
             <span class="next-step-label">Edit CLAUDE.md</span>
             <p>The generated file is a starting point. Add your domain concepts, refine principles, document your actual architecture.</p>
+          </div>
+          <div class="next-step">
+            <a href="/plugins" class="next-step-label">Plugin reference</a>
+            <p>Learn about plugin scopes, updates, local testing, and creating your own plugins.</p>
           </div>
           <div class="next-step">
             <span class="next-step-label">Read the blog post</span>
@@ -456,6 +483,54 @@ import Base from '../layouts/Base.astro';
     background: rgba(0, 255, 136, 0.12);
     color: var(--green);
     border: 1px solid rgba(0, 255, 136, 0.3);
+  }
+
+  /* Manual template (collapsed) */
+  .manual-details {
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .manual-summary {
+    padding: 1.5rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .manual-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .manual-summary::before {
+    content: '\25B6';
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    display: inline-block;
+    margin-right: 0.75rem;
+    transition: transform 0.2s;
+  }
+
+  details[open] .manual-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .manual-summary h2 {
+    display: inline;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .manual-summary p {
+    margin: 0.5rem 0 0 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .manual-content {
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid var(--bg-surface);
   }
 
   /* Phase list */
@@ -674,6 +749,10 @@ import Base from '../layouts/Base.astro';
     font-size: 0.9rem;
     color: var(--text-primary);
     font-weight: 600;
+  }
+
+  a.next-step-label {
+    color: var(--cyan);
   }
 
   .next-step p {

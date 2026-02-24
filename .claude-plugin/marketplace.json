@@ -1,0 +1,18 @@
+{
+  "name": "viewyonder-coherence",
+  "description": "Guardrails plugins for Claude Code — hooks, agents, skills, and SPEC documents that enforce architectural constraints.",
+  "owner": {
+    "name": "View Yonder",
+    "email": "hello@viewyonder.com"
+  },
+  "plugins": [
+    {
+      "name": "coherence",
+      "source": "./plugins/coherence-plugin",
+      "description": "Interactive setup wizard that generates a complete .claude/ guardrails system customized to your project — hooks, agents, skills, CLAUDE.md, and settings.",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["guardrails", "setup", "hooks", "architecture"]
+    }
+  ]
+}
