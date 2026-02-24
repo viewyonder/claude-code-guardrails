@@ -209,7 +209,7 @@ The spec doesn't drift because updating it isn't a separate task — it's part o
 
 These patterns aren't specific to our project. The principles — graduated enforcement, drift detection, verified specifications, workflow-as-architecture — apply to any codebase where an AI agent is a primary author of code.
 
-We've extracted the system into a [companion template](https://github.com/viewyonder/claude-code-guardrails) that you can adopt in about 15 minutes. It includes:
+We've extracted the system into a [companion template](https://github.com/viewyonder/claude-coherence) that you can adopt in about 15 minutes. It includes:
 
 - **9 generalized hooks** with configuration blocks at the top of each file. Swap the path patterns and constraint definitions for your project's conventions. The forbidden-imports hook ships with Node.js/Bun/Deno patterns; the route-prefix hook takes your prefix as a constant; the boundary-guard hook takes your module paths and forbidden patterns.
 - **4 universal agents** (architecture reviewer, drift detector, code reviewer, security auditor) with project-agnostic prompts. They reference your CLAUDE.md principles rather than hardcoded rules.
@@ -244,4 +244,4 @@ Entropy doesn't stop. Systems still drift. Specs still rot, conventions still di
 
 ---
 
-*This post describes patterns implemented in [injectionator-alpha](https://injectionator.com), a prompt injection defense platform built on Cloudflare Workers. The hooks, agents, and specifications referenced are real — the [companion template](https://github.com/viewyonder/claude-code-guardrails) lets you adopt them in your own projects.*
+*This post describes patterns implemented in [injectionator-alpha](https://injectionator.com), a prompt injection defense platform built on Cloudflare Workers. The hooks, agents, and specifications referenced are real — the [companion template](https://github.com/viewyonder/claude-coherence) lets you adopt them in your own projects.*

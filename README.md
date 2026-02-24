@@ -1,4 +1,4 @@
-# Claude Code Guardrails
+# Claude Coherence
 
 **Maintain architectural coherence when AI writes your code.**
 
@@ -16,15 +16,15 @@ Read the full rationale: [Entropy at Velocity](blog/entropy-at-velocity.md)
 cd /path/to/your/project
 
 # Copy the .claude directory
-cp -r /path/to/claude-code-guardrails/template/.claude .
+cp -r /path/to/claude-coherence/template/.claude .
 
 # Copy the CLAUDE.md template
-cp /path/to/claude-code-guardrails/template/CLAUDE.md .
+cp /path/to/claude-coherence/template/CLAUDE.md .
 
 # Copy the SPEC template and memory template
 mkdir -p docs
-cp /path/to/claude-code-guardrails/template/docs/SPEC-TEMPLATE.md docs/
-cp /path/to/claude-code-guardrails/template/docs/MEMORY.md docs/
+cp /path/to/claude-coherence/template/docs/SPEC-TEMPLATE.md docs/
+cp /path/to/claude-coherence/template/docs/MEMORY.md docs/
 ```
 
 ### 2. Customize CLAUDE.md
