@@ -5,36 +5,25 @@
   <div class="container">
     <div class="reveal">
       <p class="section-label">Get Started</p>
-      <h2 class="section-title">15-Minute Setup</h2>
+      <h2 class="section-title">Two Commands to Guardrails</h2>
       <p class="section-desc">
-        Copy the template into your project, customize the configuration blocks,
-        and you're enforcing architecture immediately.
+        Install the plugin, run the wizard, and you're enforcing architecture immediately.
       </p>
 
       <div class="steps">
         <div class="step">
           <div class="step-number">1</div>
           <div class="step-content">
-            <h3>Copy the template</h3>
+            <h3>Add the marketplace</h3>
             <div class="terminal">
               <div class="terminal-header">
                 <span class="terminal-dot"></span>
                 <span class="terminal-dot"></span>
                 <span class="terminal-dot"></span>
-                <span class="terminal-title">bash</span>
+                <span class="terminal-title">Claude Code</span>
               </div>
               <div class="terminal-body">
-                <span class="prompt">$</span> cd /path/to/your/project<br />
-                <br />
-                <span class="comment"># Copy the .claude directory</span><br />
-                <span class="prompt">$</span> cp -r /path/to/claude-coherence/template/.claude .<br />
-                <br />
-                <span class="comment"># Copy the CLAUDE.md template</span><br />
-                <span class="prompt">$</span> cp /path/to/claude-coherence/template/CLAUDE.md .<br />
-                <br />
-                <span class="comment"># Copy SPEC + memory templates</span><br />
-                <span class="prompt">$</span> mkdir -p docs<br />
-                <span class="prompt">$</span> cp /path/to/claude-coherence/template/docs/*.md docs/
+                <span class="prompt">&gt;</span> /plugin marketplace add viewyonder/claude-coherence
               </div>
             </div>
           </div>
@@ -43,24 +32,34 @@
         <div class="step">
           <div class="step-number">2</div>
           <div class="step-content">
-            <h3>Customize CLAUDE.md</h3>
-            <p>Replace the <code>{`{{PLACEHOLDER}}`}</code> markers with your project's values. The file has comments explaining each placeholder.</p>
+            <h3>Install the plugin</h3>
+            <div class="terminal">
+              <div class="terminal-header">
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+                <span class="terminal-title">Claude Code</span>
+              </div>
+              <div class="terminal-body">
+                <span class="prompt">&gt;</span> /plugin install coherence
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="step">
           <div class="step-number">3</div>
           <div class="step-content">
-            <h3>Configure hooks</h3>
-            <p>Each hook has a <code>// === CONFIGURATION ===</code> block at the top. Edit the constants for your project's APIs, prefixes, and boundaries.</p>
+            <h3>Run <code>/coherence</code></h3>
+            <p>The wizard scans your project, asks a few questions, and generates hooks, agents, skills, and CLAUDE.md — customized to your stack.</p>
           </div>
         </div>
 
         <div class="step">
           <div class="step-number">4</div>
           <div class="step-content">
-            <h3>Create your first SPEC</h3>
-            <p>Copy the SPEC template, fill in your actual components, and run <code>/check-drift</code> to verify.</p>
+            <h3>Review &amp; customize</h3>
+            <p>Check the generated <code>// === CONFIGURATION ===</code> blocks. Tweak patterns, paths, and thresholds for your project. <a href="/getting-started">Full guide &rarr;</a></p>
           </div>
         </div>
       </div>
