@@ -18,16 +18,16 @@ const formattedDate = date.toLocaleDateString('en-US', {
 ---
 
 <Base title={`${title} — Claude Code Guardrails`} description={subtitle}>
-  <article class="container" style="padding-top: 8rem; padding-bottom: 4rem;">
-    <header style="margin-bottom: 3rem; text-align: center;">
-      <a href="/blog" class="back-link" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); display: inline-block; margin-bottom: 2rem;">
+  <article class="container blog-article">
+    <header class="blog-article-header">
+      <a href="/blog" class="back-link">
         &larr; Back to blog
       </a>
-      <h1 style="margin-bottom: 0.75rem;">{title}</h1>
-      {subtitle && <p style="color: var(--text-secondary); font-size: 1.15rem; max-width: 60ch; margin: 0 auto;">{subtitle}</p>}
-      <div style="margin-top: 1.5rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">
+      <h1>{title}</h1>
+      {subtitle && <p class="blog-article-subtitle">{subtitle}</p>}
+      <div class="blog-article-meta">
         <time datetime={date.toISOString()}>{formattedDate}</time>
-        <span style="margin: 0 0.5rem;">·</span>
+        <span class="meta-sep">&middot;</span>
         <span>{author}</span>
       </div>
     </header>
@@ -36,3 +36,51 @@ const formattedDate = date.toLocaleDateString('en-US', {
     </div>
   </article>
 </Base>
+
+<style>
+  .blog-article {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+
+  .blog-article-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+
+  .blog-article-header h1 {
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-article-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    max-width: 60ch;
+    margin: 0 auto;
+  }
+
+  .blog-article-meta {
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .meta-sep {
+    margin: 0 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    .blog-article {
+      padding-top: 5rem;
+    }
+  }
+</style>
