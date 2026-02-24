@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import FAQ from '../components/FAQ.astro';
 ---
 
 <Base title="Plugins — Claude Coherence" description="Install, manage, and create Claude Code plugins for architectural guardrails.">
@@ -23,6 +24,7 @@ import Base from '../layouts/Base.astro';
         <li><a href="#updating">Updating</a></li>
         <li><a href="#managing">Managing</a></li>
         <li><a href="#creating-your-own">Creating your own</a></li>
+        <li><a href="#faq">Plugin FAQ</a></li>
       </ul>
     </nav>
 
@@ -375,6 +377,12 @@ import Base from '../layouts/Base.astro';
             <span class="prompt">&gt;</span> /plugin install my-plugin
           </div>
         </div>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="faq" class="guide-section">
+        <h2>Plugin FAQ</h2>
+        <FAQ tag="plugins" showAllLink={true} />
       </section>
 
     </div>
