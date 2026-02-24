@@ -1,4 +1,4 @@
-# Template: Claude Coherence
+# Template: Coherence for Claude
 
 This is the template directory. Copy its contents into your project to adopt the guardrails system.
 
