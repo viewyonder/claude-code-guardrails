@@ -1,0 +1,696 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Getting Started — Claude Code Guardrails" description="Set up architectural guardrails for Claude Code in your project. Two paths: interactive wizard or manual template.">
+  <article class="container guide">
+    <header class="guide-header">
+      <a href="/" class="back-link">&larr; Home</a>
+      <p class="section-label">Getting Started</p>
+      <h1>Set Up Guardrails</h1>
+      <p class="guide-subtitle">
+        Two paths to architectural enforcement. Pick the one that fits.
+      </p>
+    </header>
+
+    <nav class="toc">
+      <p class="toc-title">On this page</p>
+      <ul>
+        <li><a href="#path-a">Path A: Interactive setup (<code>/coherence</code>)</a></li>
+        <li><a href="#path-b">Path B: Manual template</a></li>
+        <li><a href="#what-you-get">What you get</a></li>
+        <li><a href="#project-types">Supported project types</a></li>
+        <li><a href="#next-steps">Next steps</a></li>
+      </ul>
+    </nav>
+
+    <div class="prose">
+
+      <!-- ============================================ -->
+      <section id="path-a" class="guide-section">
+        <div class="path-badge path-badge-recommended">Recommended</div>
+        <h2>Path A: Interactive Setup</h2>
+        <p>
+          The <code>/coherence</code> command is an interactive wizard that scans your project,
+          asks a few questions, and generates a complete guardrails system — hooks, agents, skills,
+          <code>CLAUDE.md</code>, and <code>settings.local.json</code> — customized to your stack and project type.
+        </p>
+
+        <h3>1. Copy the skill into your project</h3>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">bash</span>
+          </div>
+          <div class="terminal-body">
+            <span class="comment"># From your project root</span><br />
+            <span class="prompt">$</span> mkdir -p .claude/skills/coherence<br />
+            <span class="prompt">$</span> curl -o .claude/skills/coherence/SKILL.md \<br />
+            &nbsp;&nbsp;https://raw.githubusercontent.com/viewyonder/claude-code-guardrails/master/template/.claude/skills/coherence/SKILL.md
+          </div>
+        </div>
+
+        <h3>2. Run <code>/coherence</code></h3>
+        <p>Open Claude Code in your project and run:</p>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">Claude Code</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">&gt;</span> /coherence
+          </div>
+        </div>
+
+        <h3>3. Answer the questions</h3>
+        <p>
+          The wizard runs in 6 phases. Most projects need 5-8 answers total.
+        </p>
+
+        <div class="phase-list">
+          <div class="phase">
+            <div class="phase-num">0</div>
+            <div class="phase-detail">
+              <strong>Project Scan</strong>
+              <span class="phase-auto">automatic</span>
+              <p>Detects your language, framework, test runner, package manager, and project structure. No input needed.</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">1</div>
+            <div class="phase-detail">
+              <strong>Project Classification</strong>
+              <span class="phase-questions">1-2 questions</span>
+              <p>Confirms your project type (web app, API, CLI, infrastructure, writing, marketing, research) and stack details.</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">2</div>
+            <div class="phase-detail">
+              <strong>Constraint Discovery</strong>
+              <span class="phase-questions">2-3 questions</span>
+              <p>Asks about architectural boundaries, runtime constraints, data isolation, or content rules — depending on your project type.</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">3</div>
+            <div class="phase-detail">
+              <strong>Enforcement Preferences</strong>
+              <span class="phase-questions">1-2 questions</span>
+              <p>How strict should enforcement be? Should SPEC documents be generated?</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">4</div>
+            <div class="phase-detail">
+              <strong>Summary &amp; Confirmation</strong>
+              <span class="phase-auto">review</span>
+              <p>Shows exactly what files will be created. Nothing is written until you confirm.</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">5</div>
+            <div class="phase-detail">
+              <strong>Generate</strong>
+              <span class="phase-auto">automatic</span>
+              <p>Writes all files — hooks, agents, skills, CLAUDE.md, settings — customized to your project.</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">6</div>
+            <div class="phase-detail">
+              <strong>Verify</strong>
+              <span class="phase-auto">automatic</span>
+              <p>Syntax-checks every hook, cross-references settings, confirms no placeholder markers remain.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Idempotent.</strong> If you already have a <code>.claude/</code> directory, the wizard will ask whether to overwrite, merge, or abort. Use <code>/coherence --reset</code> to skip the prompt and overwrite.
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="path-b" class="guide-section">
+        <h2>Path B: Manual Template</h2>
+        <p>
+          If you prefer full control, copy the template directory and customize everything by hand.
+        </p>
+
+        <h3>1. Copy the template</h3>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">bash</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">$</span> cd /path/to/your/project<br />
+            <br />
+            <span class="comment"># Clone the repo (or download the template/ directory)</span><br />
+            <span class="prompt">$</span> git clone https://github.com/viewyonder/claude-code-guardrails.git /tmp/ccg<br />
+            <br />
+            <span class="comment"># Copy the .claude directory</span><br />
+            <span class="prompt">$</span> cp -r /tmp/ccg/template/.claude .<br />
+            <br />
+            <span class="comment"># Copy CLAUDE.md template</span><br />
+            <span class="prompt">$</span> cp /tmp/ccg/template/CLAUDE.md .<br />
+            <br />
+            <span class="comment"># Copy SPEC + memory templates</span><br />
+            <span class="prompt">$</span> mkdir -p docs<br />
+            <span class="prompt">$</span> cp /tmp/ccg/template/docs/*.md docs/
+          </div>
+        </div>
+
+        <h3>2. Customize CLAUDE.md</h3>
+        <p>
+          Replace every <code>{`{{PLACEHOLDER}}`}</code> marker with your project's values.
+          The file has HTML comments explaining each one.
+        </p>
+
+        <h3>3. Configure hooks</h3>
+        <p>
+          Each hook has a <code>// === CONFIGURATION ===</code> block at the top.
+          Edit the constants for your project's APIs, file paths, and boundaries.
+          Remove hooks you don't need.
+        </p>
+
+        <h3>4. Update settings.local.json</h3>
+        <p>
+          Remove entries for any hooks you deleted. The file lives at
+          <code>.claude/settings.local.json</code> — every hook referenced there must
+          have a matching <code>.cjs</code> file.
+        </p>
+
+        <h3>5. Create your first SPEC</h3>
+        <p>
+          Copy a SPEC template from <code>docs/</code>, fill in your actual components,
+          and run <code>/check-drift</code> to verify.
+        </p>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="what-you-get" class="guide-section">
+        <h2>What You Get</h2>
+        <p>
+          Regardless of which path you choose, you end up with a <code>.claude/</code> directory
+          that makes architectural constraints active during development.
+        </p>
+
+        <div class="file-tree">
+          <div class="file-tree-header">your-project/</div>
+          <div class="file-tree-item depth-0"><span class="file-icon">&#128196;</span> CLAUDE.md <span class="file-desc">— project guidelines, populated</span></div>
+          <div class="file-tree-item depth-0"><span class="file-icon">&#128193;</span> .claude/</div>
+          <div class="file-tree-item depth-1"><span class="file-icon">&#9881;</span> settings.local.json <span class="file-desc">— hook registrations</span></div>
+          <div class="file-tree-item depth-1"><span class="file-icon">&#128193;</span> hooks/</div>
+          <div class="file-tree-item depth-2">forbidden-imports.cjs <span class="file-desc">— block wrong-runtime APIs</span></div>
+          <div class="file-tree-item depth-2">boundary-guard.cjs <span class="file-desc">— enforce module boundaries</span></div>
+          <div class="file-tree-item depth-2">test-suggest.cjs <span class="file-desc">— nudge toward testing</span></div>
+          <div class="file-tree-item depth-2"><span class="file-muted">...more based on project type</span></div>
+          <div class="file-tree-item depth-1"><span class="file-icon">&#128193;</span> agents/</div>
+          <div class="file-tree-item depth-2">architecture-reviewer.md <span class="file-desc">— validate against principles</span></div>
+          <div class="file-tree-item depth-2">drift-detector.md <span class="file-desc">— compare spec vs code</span></div>
+          <div class="file-tree-item depth-1"><span class="file-icon">&#128193;</span> skills/</div>
+          <div class="file-tree-item depth-2"><span class="file-icon">&#128193;</span> check-drift/</div>
+          <div class="file-tree-item depth-2"><span class="file-icon">&#128193;</span> check-architecture/</div>
+        </div>
+
+        <h3>How it works at development time</h3>
+        <div class="flow-diagram">
+          <div class="flow-step">
+            <div class="flow-label">You (or Claude) edit a file</div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="flow-label">Hooks run automatically</div>
+            <div class="flow-detail">Block violations, warn about concerns, suggest tests</div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="flow-label">Claude sees the feedback inline</div>
+            <div class="flow-detail">Blocked edits are rejected. Warnings appear in context.</div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="flow-label">On demand: run <code>/check-drift</code> or <code>/check-architecture</code></div>
+            <div class="flow-detail">Agents scan the full codebase against SPEC docs and principles.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="project-types" class="guide-section">
+        <h2>Supported Project Types</h2>
+        <p>
+          <code>/coherence</code> adapts its output based on your project type.
+          Each archetype generates different hooks, agents, and CLAUDE.md sections.
+        </p>
+
+        <div class="archetype-grid">
+          <div class="archetype-card card">
+            <h3>Web Application</h3>
+            <p>React, Next.js, Vue, Svelte, Astro, etc.</p>
+            <div class="archetype-hooks">
+              <span class="badge badge-block">forbidden-imports</span>
+              <span class="badge badge-block">boundary-guard</span>
+              <span class="badge badge-block">state-flow</span>
+              <span class="badge badge-warn">delegation-check</span>
+              <span class="badge badge-info">test-suggest</span>
+              <span class="badge badge-info">change-suggest</span>
+            </div>
+          </div>
+
+          <div class="archetype-card card">
+            <h3>API / Backend</h3>
+            <p>Express, FastAPI, Rails, Spring, etc.</p>
+            <div class="archetype-hooks">
+              <span class="badge badge-block">forbidden-imports</span>
+              <span class="badge badge-block">boundary-guard</span>
+              <span class="badge badge-block">required-prefix</span>
+              <span class="badge badge-warn">data-isolation</span>
+              <span class="badge badge-warn">delegation-check</span>
+              <span class="badge badge-info">test-suggest</span>
+            </div>
+          </div>
+
+          <div class="archetype-card card">
+            <h3>CLI / Library</h3>
+            <p>npm packages, CLIs, crates, pip packages.</p>
+            <div class="archetype-hooks">
+              <span class="badge badge-block">forbidden-imports</span>
+              <span class="badge badge-block">boundary-guard</span>
+              <span class="badge badge-block">test-gate</span>
+              <span class="badge badge-info">test-suggest</span>
+            </div>
+          </div>
+
+          <div class="archetype-card card">
+            <h3>Infrastructure</h3>
+            <p>Terraform, Pulumi, CDK, Docker, K8s.</p>
+            <div class="archetype-hooks">
+              <span class="badge badge-block">forbidden-imports</span>
+              <span class="badge badge-block">boundary-guard</span>
+              <span class="badge badge-info">change-suggest</span>
+            </div>
+          </div>
+
+          <div class="archetype-card card">
+            <h3>Writing / Content</h3>
+            <p>Docs, blogs, technical writing, research.</p>
+            <div class="archetype-hooks">
+              <span class="badge badge-warn">terminology-check</span>
+              <span class="badge badge-warn">style-guard</span>
+            </div>
+          </div>
+
+          <div class="archetype-card card">
+            <h3>Marketing / Brand</h3>
+            <p>Brand content, campaigns, social media.</p>
+            <div class="archetype-hooks">
+              <span class="badge badge-block">terminology-check</span>
+              <span class="badge badge-warn">style-guard</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <section id="next-steps" class="guide-section">
+        <h2>Next Steps</h2>
+
+        <div class="next-steps-list">
+          <div class="next-step">
+            <code>/check-architecture</code>
+            <p>Run immediately after setup to see how your current code measures against the generated principles.</p>
+          </div>
+          <div class="next-step">
+            <code>/check-drift</code>
+            <p>After creating SPEC documents, run this to verify they match reality.</p>
+          </div>
+          <div class="next-step">
+            <span class="next-step-label">Review hook configs</span>
+            <p>Open each <code>.cjs</code> file and check the <code>// === CONFIGURATION ===</code> block. Tweak patterns, paths, and thresholds for your project.</p>
+          </div>
+          <div class="next-step">
+            <span class="next-step-label">Edit CLAUDE.md</span>
+            <p>The generated file is a starting point. Add your domain concepts, refine principles, document your actual architecture.</p>
+          </div>
+          <div class="next-step">
+            <span class="next-step-label">Read the blog post</span>
+            <p><a href="/blog/entropy-at-velocity">Entropy at Velocity</a> explains the thinking behind this system.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </article>
+</Base>
+
+<style>
+  .guide {
+    padding-top: 7rem;
+    padding-bottom: 4rem;
+  }
+
+  .guide-header {
+    margin-bottom: 3rem;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+
+  .guide-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    max-width: 50ch;
+  }
+
+  /* Table of contents */
+  .toc {
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+    max-width: 500px;
+  }
+
+  .toc-title {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .toc ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .toc li {
+    margin-bottom: 0.4rem;
+  }
+
+  .toc a {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .toc a:hover {
+    color: var(--cyan);
+    opacity: 1;
+  }
+
+  .toc code {
+    font-size: 0.8rem;
+  }
+
+  /* Sections */
+  .guide-section {
+    padding: 0;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+
+  .guide-section h2 {
+    margin-bottom: 1rem;
+  }
+
+  .guide-section h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  /* Path badges */
+  .path-badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2em 0.8em;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .path-badge-recommended {
+    background: rgba(0, 255, 136, 0.12);
+    color: var(--green);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+  }
+
+  /* Phase list */
+  .phase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .phase {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+  }
+
+  .phase-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--cyan);
+    border: 1px solid rgba(0, 255, 240, 0.3);
+    border-radius: 4px;
+  }
+
+  .phase-detail {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .phase-detail strong {
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+  }
+
+  .phase-detail p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    margin-top: 0.25rem;
+  }
+
+  .phase-auto, .phase-questions {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.1em 0.5em;
+    border-radius: var(--radius-sm);
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .phase-auto {
+    background: rgba(0, 255, 240, 0.1);
+    color: var(--cyan);
+  }
+
+  .phase-questions {
+    background: rgba(255, 170, 0, 0.12);
+    color: var(--amber);
+  }
+
+  /* Callout */
+  .callout {
+    background: var(--bg-mid);
+    border-left: 3px solid var(--cyan);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .callout strong {
+    color: var(--text-primary);
+  }
+
+  /* File tree */
+  .file-tree {
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin: 1.5rem 0;
+    max-width: 550px;
+  }
+
+  .file-tree-header {
+    color: var(--cyan);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--bg-surface);
+  }
+
+  .file-tree-item {
+    padding: 0.2rem 0;
+    color: var(--text-primary);
+  }
+
+  .depth-0 { padding-left: 0; }
+  .depth-1 { padding-left: 1.5rem; }
+  .depth-2 { padding-left: 3rem; }
+
+  .file-icon {
+    margin-right: 0.4rem;
+  }
+
+  .file-desc {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+  }
+
+  .file-muted {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* Flow diagram */
+  .flow-diagram {
+    margin: 1.5rem 0;
+    max-width: 450px;
+  }
+
+  .flow-step {
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+  }
+
+  .flow-label {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+  }
+
+  .flow-detail {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .flow-arrow {
+    text-align: center;
+    color: var(--cyan);
+    font-size: 1.2rem;
+    padding: 0.25rem 0;
+    font-family: var(--font-mono);
+  }
+
+  /* Archetype grid */
+  .archetype-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--gap);
+    margin: 1.5rem 0;
+  }
+
+  .archetype-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .archetype-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .archetype-hooks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .archetype-hooks .badge {
+    font-size: 0.65rem;
+  }
+
+  /* Next steps */
+  .next-steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .next-step {
+    padding: 1rem 1.25rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--bg-surface);
+    border-radius: var(--radius);
+  }
+
+  .next-step code {
+    font-size: 0.9rem;
+    color: var(--cyan);
+    background: rgba(0, 255, 240, 0.08);
+  }
+
+  .next-step-label {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .next-step p {
+    margin-bottom: 0;
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .phase {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .archetype-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -181,22 +181,30 @@
 }
 
 /* === Connector Lines (Architecture Cards) === */
+/* Only show connectors at wide viewports where all 4 cards fit in one row */
 .connector {
   position: relative;
 }
 
 .connector::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: -1rem;
-  width: 2rem;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cyan), transparent);
+  display: none;
 }
 
-.connector:last-child::after {
-  display: none;
+@media (min-width: 1100px) {
+  .connector::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: -1rem;
+    width: 2rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+  }
+
+  .connector:last-child::after {
+    display: none;
+  }
 }
 
 /* === Pull Quote === */

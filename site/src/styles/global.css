@@ -177,6 +177,38 @@ section {
   border: 1px solid rgba(0, 255, 240, 0.2);
 }
 
+/* === Buttons === */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.75em 1.75em;
+  border-radius: var(--radius);
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--cyan);
+  color: var(--bg-deep);
+}
+
+.btn-primary:hover {
+  opacity: 1;
+  box-shadow: 0 0 20px rgba(0, 255, 240, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--bg-surface);
+}
+
+.btn-secondary:hover {
+  border-color: var(--cyan);
+  opacity: 1;
+}
+
 /* === Section Headers === */
 .section-label {
   font-family: var(--font-mono);
