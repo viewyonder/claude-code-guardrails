@@ -4,7 +4,7 @@
 
 A system of hooks, agents, skills, and specification documents that encode your project's architectural constraints into the Claude Code development loop. Instead of catching violations during review, they're caught at the moment of creation.
 
-Read the full rationale: [Entropy at Velocity](blog/entropy-at-velocity.md)
+Website: [coherence.viewyonder.com](https://coherence.viewyonder.com) | [Getting Started](https://coherence.viewyonder.com/getting-started) | [Entropy at Velocity](blog/entropy-at-velocity.md) (blog post)
 
 ---
 
@@ -57,7 +57,7 @@ Then customize manually:
 | **SPEC Docs** | Define what "correct" means (falsifiable claims) | Referenced by agents and humans |
 | **Skills** | Multi-step workflows with built-in compliance | User-invoked (`/check-drift`) |
 
-### Hooks (9 included)
+### Hooks (11 included)
 
 | Hook | Enforcement | Purpose |
 |------|-------------|---------|
@@ -67,23 +67,27 @@ Then customize manually:
 | `test-gate.cjs` | Blocking | Block commits without tests |
 | `data-isolation.cjs` | Warning | Warn on unfiltered DB queries |
 | `delegation-check.js` | Warning | Warn on inline business logic |
+| `style-guard.cjs` | Warning | Enforce prose style and formatting rules |
+| `terminology-check.cjs` | Warning | Enforce consistent terminology |
 | `state-flow.cjs` | Blocking/Warning | Enforce unidirectional state |
 | `test-suggest.cjs` | Informational | Suggest running related tests |
 | `change-suggest.cjs` | Informational | Suggest related actions |
 
-### Agents (4 included)
+### Agents (5 included)
 
 | Agent | Role |
 |-------|------|
 | `architecture-reviewer` | Compliance check against CLAUDE.md principles |
 | `drift-detector` | Compare SPEC docs against codebase reality |
 | `code-reviewer` | Quality, security, and best practices review |
+| `consistency-reviewer` | Terminology, voice, and structural consistency |
 | `security-auditor` | OWASP-focused vulnerability detection |
 
-### Skills (3 included)
+### Skills (4 included)
 
 | Command | What It Does |
 |---------|--------------|
+| `/coherence` | Interactive setup wizard — generates a customized guardrails system |
 | `/check-drift` | Invoke drift detector, compare specs against code |
 | `/check-architecture` | Compliance review of staged changes or a path |
 | `/test` | Run tests with flexible scope control |
@@ -128,4 +132,4 @@ MIT. See [LICENSE](LICENSE).
 
 ---
 
-Built by [Injectionator](https://injectionator.com). Inspired by the patterns we developed while building a prompt injection defense platform with Claude Code as a primary development tool.
+Built by [View Yonder](https://viewyonder.com). Inspired by the patterns we developed while building software with Claude Code as a primary development tool.

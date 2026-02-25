@@ -6,7 +6,7 @@
     "name": "View Yonder",
     "email": "hello@viewyonder.com"
   },
-  "homepage": "https://claude.viewyonder.com",
+  "homepage": "https://coherence.viewyonder.com",
   "repository": "https://github.com/viewyonder/coherence",
   "license": "MIT",
   "keywords": ["guardrails", "setup", "hooks", "architecture", "constraints"]

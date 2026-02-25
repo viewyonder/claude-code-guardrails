@@ -516,7 +516,7 @@ Generate for code projects. Standard structure:
 name: check-architecture
 description: Run an architecture review against CLAUDE.md principles.
 user_invocable: true
-arguments: "[path or 'staged']"
+arguments: "[path or --staged]"
 ---
 
 # /check-architecture
@@ -541,7 +541,7 @@ Generate for writing/marketing/research projects:
 name: check-consistency
 description: Review content for terminology, voice, and structural consistency.
 user_invocable: true
-arguments: "[path or 'all']"
+arguments: "[path or --all]"
 ---
 
 # /check-consistency
