@@ -35,6 +35,7 @@ Instructions for Claude Code to follow when this skill is invoked.
 | check-drift | `/check-drift [scope]` | Compare SPEC docs against codebase |
 | check-architecture | `/check-architecture [path]` | Compliance check against CLAUDE.md |
 | test | `/test [scope]` | Run tests with flexible scope |
+| coherence | `/coherence [--reset]` | Interactive setup wizard |
 
 ## Creating Your Own Skill
 

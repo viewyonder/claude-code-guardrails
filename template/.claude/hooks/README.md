@@ -73,6 +73,8 @@ Hooks are scoped to specific tools via the `"matcher"` field:
 | `test-gate.cjs` | Pre | Blocking | Block commits without tests |
 | `data-isolation.cjs` | Pre | Warning | Warn on unfiltered DB queries |
 | `delegation-check.js` | Pre | Warning | Warn on inline business logic |
+| `style-guard.cjs` | Pre | Warning | Enforce prose style and formatting rules |
+| `terminology-check.cjs` | Pre | Warning | Enforce consistent terminology |
 | `state-flow.cjs` | Pre | Blocking/Warning | Enforce unidirectional state |
 | `test-suggest.cjs` | Post | Informational | Suggest running related tests |
 | `change-suggest.cjs` | Post | Informational | Suggest related actions |
