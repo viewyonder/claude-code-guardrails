@@ -22,7 +22,7 @@ if (!prefersReducedMotion) {
 // === Typing Effect ===
 const typedEl = document.getElementById('typed-subtitle');
 if (typedEl) {
-  const text = 'Create coherence from creation to operations.';
+  const text = 'The elastic between your plan and your actual.';
 
   if (prefersReducedMotion) {
     typedEl.textContent = text;
