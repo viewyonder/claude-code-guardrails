@@ -8,9 +8,20 @@ Website: [coherence.viewyonder.com](https://coherence.viewyonder.com) | [Getting
 
 ---
 
-## Quick Start (15 minutes)
+## Install (2 commands)
 
-### 1. Copy the template into your project
+```
+/plugin marketplace add viewyonder/coherence
+/plugin install coherence
+```
+
+Then run `/coherence` in your project to launch the interactive setup wizard. It walks you through your stack, generates customized hooks, agents, skills, a `CLAUDE.md`, and `settings.local.json` — all tailored to your project.
+
+---
+
+## Manual Installation
+
+If you prefer more control or can't use the plugin system, copy the template directly:
 
 ```bash
 cd /path/to/your/project
@@ -27,29 +38,11 @@ cp /path/to/coherence/template/docs/SPEC-TEMPLATE.md docs/
 cp /path/to/coherence/template/docs/MEMORY.md docs/
 ```
 
-### Alternative: Use the `/coherence` wizard
+Then customize manually:
 
-If you install the [Coherence plugin](#plugin), you can run `/coherence` inside Claude Code and it will interactively generate a customized `.claude/` setup for your project — no manual copying required.
-
-### 2. Customize CLAUDE.md
-
-Replace the `{{PLACEHOLDER}}` markers with your project's values. The file has comments explaining each placeholder.
-
-### 3. Configure hooks
-
-Each hook in `.claude/hooks/` has a `// === CONFIGURATION ===` block at the top. Edit the constants for your project:
-
-- **What APIs are forbidden?** Edit `forbidden-imports.cjs`
-- **What route prefix is required?** Edit `required-prefix.cjs`
-- **What module boundaries exist?** Edit `boundary-guard.cjs`
-- **What tenant filter fields are used?** Edit `data-isolation.cjs`
-- **Where do stores and views live?** Edit `state-flow.cjs`
-
-Remove hooks that don't apply to your project and update `settings.local.json` accordingly.
-
-### 4. Create your first SPEC document
-
-Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), fill in your actual components, and run `/check-drift` to verify.
+1. **CLAUDE.md** — Replace `{{PLACEHOLDER}}` markers with your project's values
+2. **Hooks** — Edit the `// === CONFIGURATION ===` block at the top of each hook in `.claude/hooks/`. Remove hooks that don't apply and update `settings.local.json` accordingly.
+3. **SPEC docs** — Copy `docs/SPEC-TEMPLATE.md` to something like `docs/SPEC-API-SURFACE.md`, fill in your actual components, and run `/check-drift` to verify.
 
 ---
 
@@ -116,22 +109,6 @@ The `examples/` directory shows how the template adapts to different stacks:
 - CLAUDE.md adapted for Next.js App Router patterns
 - `forbidden-imports.cjs` enforces server/client boundary (no Prisma in client components)
 - `boundary-guard.cjs` ensures Prisma stays in `lib/db/`
-
----
-
-## Plugin
-
-The `/coherence` wizard is also available as a Claude Code plugin. Instead of manually copying files, install the plugin and run `/coherence` to interactively generate a guardrails system customized to your project.
-
-### Install
-
-```bash
-claude plugin add --from https://github.com/viewyonder/coherence
-```
-
-The plugin adds the `/coherence` skill to any project. It scans your codebase, asks about your stack and constraints, and generates the full `.claude/` directory — hooks, agents, skills, `CLAUDE.md`, and settings — all customized to your project.
-
-See [coherence.viewyonder.com/getting-started](https://coherence.viewyonder.com/getting-started) for a walkthrough.
 
 ---
 
