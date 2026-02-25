@@ -47,6 +47,7 @@ Review agents should be read-only. They observe and report; they don't change co
 | `architecture-reviewer` | Compliance check against CLAUDE.md principles | Read-only | After changes, before PRs |
 | `drift-detector` | Compare SPEC docs against codebase | Read-only | Periodically, after features |
 | `code-reviewer` | Quality, security, best practices | Read-only | After significant changes |
+| `consistency-reviewer` | Terminology, voice, and structural consistency | Read-only | Content/documentation review |
 | `security-auditor` | OWASP-focused vulnerability detection | Read-only | Security-critical code |
 
 ## Creating Your Own Agent
