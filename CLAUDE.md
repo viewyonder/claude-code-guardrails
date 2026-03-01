@@ -19,7 +19,7 @@ A template system for encoding architectural constraints into the Claude Code de
 | **Hooks** | `template/.claude/hooks/` | Enforce constraints (block/warn/inform) | Every file edit/write/commit via `settings.local.json` |
 | **Agents** | `template/.claude/agents/` | Review and detect drift (read-only) | On demand via skills |
 | **SPEC Docs** | `template/docs/` | Define "correct" via falsifiable claims | Referenced by agents |
-| **Skills** | `template/.claude/skills/` | Multi-step workflows with compliance built in | User-invoked (`/check-drift`, etc.) |
+| **Skills** | `template/.claude/skills/` | Multi-step workflows with compliance built in | User-invoked (`/coherence`, etc.) |
 
 ## Hook Protocol
 

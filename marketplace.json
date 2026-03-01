@@ -4,7 +4,7 @@
   "owner": { "name": "View Yonder", "url": "https://viewyonder.com" },
   "plugins": [
     {
-      "name": "coherence",
+      "name": "coherence-setup",
       "description": "Interactive setup wizard that generates a complete .claude/ guardrails system customized to your project.",
       "version": "1.0.0",
       "source": "./plugins/coherence-plugin",

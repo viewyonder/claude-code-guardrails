@@ -27,9 +27,9 @@ cp /path/to/coherence/template/docs/SPEC-TEMPLATE.md docs/
 cp /path/to/coherence/template/docs/MEMORY.md docs/
 ```
 
-### Alternative: Use the `/coherence` wizard
+### Alternative: Use the `/coherence-setup` wizard
 
-If you install the [Coherence plugin](#plugin), you can run `/coherence` inside Claude Code and it will interactively generate a customized `.claude/` setup for your project — no manual copying required.
+If you install the [Coherence plugin](#plugin), you can run `/coherence-setup` inside Claude Code and it will interactively generate a customized `.claude/` setup for your project — no manual copying required.
 
 ### 2. Customize CLAUDE.md
 
@@ -49,7 +49,7 @@ Remove hooks that don't apply to your project and update `settings.local.json` a
 
 ### 4. Create your first SPEC document
 
-Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), fill in your actual components, and run `/check-drift` to verify.
+Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), fill in your actual components, and run `/coherence` to verify.
 
 ---
 
@@ -62,7 +62,7 @@ Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), f
 | **Hooks** | Enforce known constraints (block, warn, suggest) | Every file edit/write/commit |
 | **Agents** | Detect drift and review architecture | On demand via skills |
 | **SPEC Docs** | Define what "correct" means (falsifiable claims) | Referenced by agents and humans |
-| **Skills** | Multi-step workflows with built-in compliance | User-invoked (`/check-drift`) |
+| **Skills** | Multi-step workflows with built-in compliance | User-invoked (`/coherence`) |
 
 ### Hooks (11 included)
 
@@ -85,7 +85,7 @@ Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), f
 | Agent | Role |
 |-------|------|
 | `architecture-reviewer` | Compliance check against CLAUDE.md principles |
-| `drift-detector` | Compare SPEC docs against codebase reality |
+| `coherence-auditor` | Audit coherence: SPEC drift + git workflow compliance |
 | `code-reviewer` | Quality, security, and best practices review |
 | `consistency-reviewer` | Terminology, voice, and structural consistency |
 | `security-auditor` | OWASP-focused vulnerability detection |
@@ -94,8 +94,8 @@ Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), f
 
 | Command | What It Does |
 |---------|--------------|
-| `/coherence` | Interactive setup wizard — generates a customized guardrails system |
-| `/check-drift` | Invoke drift detector, compare specs against code |
+| `/coherence-setup` | Interactive setup wizard — generates a customized guardrails system |
+| `/coherence` | Audit coherence: SPEC drift + git workflow compliance |
 | `/check-architecture` | Compliance review of staged changes or a path |
 | `/test` | Run tests with flexible scope control |
 
@@ -121,7 +121,7 @@ The `examples/` directory shows how the template adapts to different stacks:
 
 ## Plugin
 
-The `/coherence` wizard is also available as a Claude Code plugin. Instead of manually copying files, install the plugin and run `/coherence` to interactively generate a guardrails system customized to your project.
+The `/coherence-setup` wizard is also available as a Claude Code plugin. Instead of manually copying files, install the plugin and run `/coherence-setup` to interactively generate a guardrails system customized to your project.
 
 ### Install
 
@@ -129,7 +129,7 @@ The `/coherence` wizard is also available as a Claude Code plugin. Instead of ma
 claude plugin add --from https://github.com/viewyonder/coherence
 ```
 
-The plugin adds the `/coherence` skill to any project. It scans your codebase, asks about your stack and constraints, and generates the full `.claude/` directory — hooks, agents, skills, `CLAUDE.md`, and settings — all customized to your project.
+The plugin adds the `/coherence-setup` skill to any project. It scans your codebase, asks about your stack and constraints, and generates the full `.claude/` directory — hooks, agents, skills, `CLAUDE.md`, and settings — all customized to your project.
 
 See [coherence.viewyonder.com/getting-started](https://coherence.viewyonder.com/getting-started) for a walkthrough.
 
@@ -143,7 +143,7 @@ See [coherence.viewyonder.com/getting-started](https://coherence.viewyonder.com/
 
 **SPEC documents** are falsifiable descriptions of what the code currently does — not what it should do. They make claims like "we have 18 inspectors" that can be mechanically verified against the codebase.
 
-**Skills** are named multi-step workflows. `/check-drift` doesn't just run a grep — it invokes the drift-detector agent, which reads every SPEC document, compares against code, and produces a structured report.
+**Skills** are named multi-step workflows. `/coherence` doesn't just run a grep — it invokes the coherence-auditor agent, which reads every SPEC document, compares against code, and produces a structured report.
 
 See [the blog post](blog/entropy-at-velocity.md) for the full rationale behind this approach.
 

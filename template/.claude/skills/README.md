@@ -1,6 +1,6 @@
 # Claude Code Skills
 
-Skills are named workflows that users invoke with a slash command (e.g., `/check-drift`). Each skill defines a multi-step process that Claude Code executes.
+Skills are named workflows that users invoke with a slash command (e.g., `/coherence`). Each skill defines a multi-step process that Claude Code executes.
 
 ## How Skills Work
 
@@ -23,7 +23,7 @@ Instructions for Claude Code to follow when this skill is invoked.
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `name` | Yes | Slash command name (e.g., `check-drift` -> `/check-drift`) |
+| `name` | Yes | Slash command name (e.g., `coherence` -> `/coherence`) |
 | `description` | Yes | What the skill does |
 | `user_invocable` | Yes | Set to `true` for user-facing skills |
 | `arguments` | No | Description of accepted arguments |
@@ -32,10 +32,10 @@ Instructions for Claude Code to follow when this skill is invoked.
 
 | Skill | Command | What It Does |
 |-------|---------|--------------|
-| check-drift | `/check-drift [scope]` | Compare SPEC docs against codebase |
+| coherence | `/coherence [scope]` | Audit coherence: SPEC drift + git workflow |
 | check-architecture | `/check-architecture [path]` | Compliance check against CLAUDE.md |
 | test | `/test [scope]` | Run tests with flexible scope |
-| coherence | `/coherence [--reset]` | Interactive setup wizard |
+| coherence-setup | `/coherence-setup [--reset]` | Interactive setup wizard |
 
 ## Creating Your Own Skill
 
@@ -45,7 +45,7 @@ Instructions for Claude Code to follow when this skill is invoked.
 4. Reference agents if the skill delegates to one
 
 Skills can:
-- Invoke agents (e.g., `/check-drift` invokes `drift-detector`)
+- Invoke agents (e.g., `/coherence` invokes `coherence-auditor`)
 - Run commands directly
 - Combine multiple steps into a workflow
 - Accept arguments to control scope

@@ -1,5 +1,5 @@
 {
-  "name": "coherence",
+  "name": "coherence-setup",
   "description": "Interactive setup wizard that generates a complete .claude/ guardrails system customized to your project — hooks, agents, skills, CLAUDE.md, and settings.",
   "version": "1.0.0",
   "author": {

@@ -45,7 +45,7 @@ Review agents should be read-only. They observe and report; they don't change co
 | Agent | Role | Tools | Use When |
 |-------|------|-------|----------|
 | `architecture-reviewer` | Compliance check against CLAUDE.md principles | Read-only | After changes, before PRs |
-| `drift-detector` | Compare SPEC docs against codebase | Read-only | Periodically, after features |
+| `coherence-auditor` | Compare SPEC docs against codebase | Read-only | Periodically, after features |
 | `code-reviewer` | Quality, security, best practices | Read-only | After significant changes |
 | `consistency-reviewer` | Terminology, voice, and structural consistency | Read-only | Content/documentation review |
 | `security-auditor` | OWASP-focused vulnerability detection | Read-only | Security-critical code |
@@ -67,4 +67,4 @@ The agent becomes available to Claude Code automatically.
 
 Agents are invoked via skills (see `skills/README.md`) or by Claude Code's agent system when the task matches the agent's description.
 
-Example: The `/check-drift` skill invokes the `drift-detector` agent.
+Example: The `/coherence` skill invokes the `coherence-auditor` agent.

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Getting Started — Coherence for Claude" description="Two commands to architectural guardrails. Install the plugin, run /coherence, and you're enforcing architecture immediately.">
+<Base title="Getting Started — Coherence for Claude" description="Two commands to architectural guardrails. Install the plugin, run /coherence-setup, and you're enforcing architecture immediately.">
   <article class="container guide">
     <header class="guide-header">
       <a href="/" class="back-link">&larr; Home</a>
@@ -31,7 +31,7 @@ import Base from '../layouts/Base.astro';
         <div class="path-badge path-badge-recommended">Recommended</div>
         <h2>Install</h2>
         <p>
-          The Coherence plugin adds the <code>/coherence</code> command to Claude Code.
+          The Coherence plugin adds the <code>/coherence-setup</code> command to Claude Code.
           It scans your project, asks a few questions, and generates a complete guardrails system —
           hooks, agents, skills, <code>CLAUDE.md</code>, and <code>settings.local.json</code> —
           customized to your stack.
@@ -63,7 +63,7 @@ import Base from '../layouts/Base.astro';
           </div>
         </div>
 
-        <h3>3. Run <code>/coherence</code></h3>
+        <h3>3. Run <code>/coherence-setup</code></h3>
         <p>Open Claude Code in your project and run:</p>
         <div class="terminal">
           <div class="terminal-header">
@@ -73,7 +73,7 @@ import Base from '../layouts/Base.astro';
             <span class="terminal-title">Claude Code</span>
           </div>
           <div class="terminal-body">
-            <span class="prompt">&gt;</span> /coherence
+            <span class="prompt">&gt;</span> /coherence-setup
           </div>
         </div>
 
@@ -142,7 +142,7 @@ import Base from '../layouts/Base.astro';
         </div>
 
         <div class="callout">
-          <strong>Idempotent.</strong> If you already have a <code>.claude/</code> directory, the wizard will ask whether to overwrite, merge, or abort. Use <code>/coherence --reset</code> to skip the prompt and overwrite.
+          <strong>Idempotent.</strong> If you already have a <code>.claude/</code> directory, the wizard will ask whether to overwrite, merge, or abort. Use <code>/coherence-setup --reset</code> to skip the prompt and overwrite.
         </div>
       </section>
 
@@ -204,7 +204,7 @@ import Base from '../layouts/Base.astro';
             <h3>5. Create your first SPEC</h3>
             <p>
               Copy a SPEC template from <code>docs/</code>, fill in your actual components,
-              and run <code>/check-drift</code> to verify.
+              and run <code>/coherence</code> to verify.
             </p>
           </div>
         </details>
@@ -234,7 +234,7 @@ import Base from '../layouts/Base.astro';
           </div>
           <div class="flow-arrow">&darr;</div>
           <div class="flow-step">
-            <div class="flow-label">On demand: run <code>/check-drift</code> or <code>/check-architecture</code></div>
+            <div class="flow-label">On demand: run <code>/coherence</code> or <code>/check-architecture</code></div>
             <div class="flow-detail">Agents scan the full codebase against SPEC docs and principles.</div>
           </div>
         </div>
@@ -260,9 +260,9 @@ import Base from '../layouts/Base.astro';
           <div class="file-tree-item depth-2"><span class="file-muted">...more based on project type</span></div>
           <div class="file-tree-item depth-1"><span class="file-icon">&#128193;</span> agents/</div>
           <div class="file-tree-item depth-2">architecture-reviewer.md <span class="file-desc">— validate against principles</span></div>
-          <div class="file-tree-item depth-2">drift-detector.md <span class="file-desc">— compare spec vs code</span></div>
+          <div class="file-tree-item depth-2">coherence-auditor.md <span class="file-desc">— compare spec vs code</span></div>
           <div class="file-tree-item depth-1"><span class="file-icon">&#128193;</span> skills/</div>
-          <div class="file-tree-item depth-2"><span class="file-icon">&#128193;</span> check-drift/</div>
+          <div class="file-tree-item depth-2"><span class="file-icon">&#128193;</span> coherence/</div>
           <div class="file-tree-item depth-2"><span class="file-icon">&#128193;</span> check-architecture/</div>
         </div>
       </section>
@@ -271,7 +271,7 @@ import Base from '../layouts/Base.astro';
       <section id="project-types" class="guide-section">
         <h2>Supported Project Types</h2>
         <p>
-          <code>/coherence</code> adapts its output based on your project type.
+          <code>/coherence-setup</code> adapts its output based on your project type.
           Each archetype generates different hooks, agents, and CLAUDE.md sections.
         </p>
 
@@ -353,7 +353,7 @@ import Base from '../layouts/Base.astro';
             <p>Run immediately after setup to see how your current code measures against the generated principles.</p>
           </div>
           <div class="next-step">
-            <code>/check-drift</code>
+            <code>/coherence</code>
             <p>After creating SPEC documents, run this to verify they match reality.</p>
           </div>
           <div class="next-step">

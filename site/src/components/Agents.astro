@@ -7,9 +7,9 @@ const agents = [
     access: 'Read-only',
   },
   {
-    name: 'Drift Detector',
+    name: 'Coherence Auditor',
     type: 'Review',
-    desc: 'Compares SPEC documents against codebase. Reports CURRENT / DRIFTED / UNDOCUMENTED status.',
+    desc: 'Audits SPEC drift + git workflow compliance. Reports CURRENT / DRIFTED / UNDOCUMENTED / VIOLATION status.',
     access: 'Read-only',
   },
   {
@@ -28,8 +28,8 @@ const agents = [
 
 const skills = [
   {
-    command: '/check-drift',
-    desc: 'Invoke drift detector, compare specs against code',
+    command: '/coherence',
+    desc: 'Audit coherence: SPEC drift + git workflow compliance',
   },
   {
     command: '/check-architecture',

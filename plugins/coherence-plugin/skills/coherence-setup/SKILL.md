@@ -1,11 +1,11 @@
 ---
-name: coherence
+name: coherence-setup
 description: Interactive setup wizard that generates a complete .claude/ guardrails system customized to your project — hooks, agents, skills, CLAUDE.md, and settings.
 user_invocable: true
 arguments: "[--reset]"
 ---
 
-# /coherence — Project Guardrails Setup
+# /coherence-setup — Project Guardrails Setup
 
 You are running the Coherence setup wizard. Your job is to guide the user through setting up a complete `.claude/` guardrails system customized to their project.
 
@@ -238,7 +238,7 @@ Based on your answers, I'll generate:
   - ...
 
 🎯 Skills:
-  - /check-drift — compare spec docs against codebase
+  - /coherence — audit coherence (spec drift + git workflow)
   - /check-architecture — run architecture review
   - ...
 
@@ -490,10 +490,11 @@ Generate for code projects. Customize:
 - Review categories based on the project type
 - Anti-patterns specific to the framework/stack
 
-### TEMPLATE: Agent — drift-detector.md
+### TEMPLATE: Agent — coherence-auditor.md
 
 Generate for projects with SPEC documents. Customize:
 - SPEC document list based on what was generated
+- Git workflow checks if the project uses git conventions
 
 ### TEMPLATE: Agent — consistency-reviewer.md
 
@@ -501,10 +502,10 @@ Generate for writing, marketing, and research projects. Customize:
 - Review categories based on content type
 - Consistency checks specific to the domain
 
-### TEMPLATE: Skill — check-drift/SKILL.md
+### TEMPLATE: Skill — coherence/SKILL.md
 
 Generate for projects with SPEC documents. Customize:
-- Scope options based on project type
+- Scope options based on project type (include `git` scope for projects with git conventions)
 - SPEC document table
 
 ### TEMPLATE: Skill — check-architecture/SKILL.md
