@@ -8,9 +8,30 @@ Read the full rationale: [Entropy at Velocity](blog/entropy-at-velocity.md)
 
 ---
 
-## Quick Start (15 minutes)
+## Quick Start
 
-### 1. Copy the template into your project
+### Option A: Plugin Install (recommended)
+
+Three commands, each with a different scope:
+
+```bash
+# 1. Add the marketplace (device-wide — makes the plugin available on this machine)
+/plugin marketplace add https://github.com/viewyonder/coherence
+
+# 2. Install the plugin (per-repo — activates coherence for the current project)
+/plugin install coherence
+
+# 3. Run the setup wizard (one-time action — generates customized guardrails)
+/coherence
+```
+
+The wizard scans your project, asks a few questions, and generates a complete `.claude/` guardrails system — hooks, agents, skills, CLAUDE.md, and settings — customized to your stack.
+
+### Option B: Manual Copy
+
+If you prefer to copy files directly instead of using the plugin:
+
+#### 1. Copy the template into your project
 
 ```bash
 cd /path/to/your/project
@@ -27,11 +48,11 @@ cp /path/to/coherence/template/docs/SPEC-TEMPLATE.md docs/
 cp /path/to/coherence/template/docs/MEMORY.md docs/
 ```
 
-### 2. Customize CLAUDE.md
+#### 2. Customize CLAUDE.md
 
 Replace the `{{PLACEHOLDER}}` markers with your project's values. The file has comments explaining each placeholder.
 
-### 3. Configure hooks
+#### 3. Configure hooks
 
 Each hook in `.claude/hooks/` has a `// === CONFIGURATION ===` block at the top. Edit the constants for your project:
 
@@ -43,7 +64,7 @@ Each hook in `.claude/hooks/` has a `// === CONFIGURATION ===` block at the top.
 
 Remove hooks that don't apply to your project and update `settings.local.json` accordingly.
 
-### 4. Create your first SPEC document
+#### 4. Create your first SPEC document
 
 Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), fill in your actual components, and run `/check-drift` to verify.
 
@@ -60,7 +81,7 @@ Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), f
 | **SPEC Docs** | Define what "correct" means (falsifiable claims) | Referenced by agents and humans |
 | **Skills** | Multi-step workflows with built-in compliance | User-invoked (`/check-drift`) |
 
-### Hooks (9 included)
+### Hooks (11 included)
 
 | Hook | Enforcement | Purpose |
 |------|-------------|---------|
@@ -71,10 +92,12 @@ Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), f
 | `data-isolation.cjs` | Warning | Warn on unfiltered DB queries |
 | `delegation-check.js` | Warning | Warn on inline business logic |
 | `state-flow.cjs` | Blocking/Warning | Enforce unidirectional state |
+| `terminology-check.cjs` | Warning | Enforce terminology consistency |
+| `style-guard.cjs` | Warning | Enforce voice, tone, and structure rules |
 | `test-suggest.cjs` | Informational | Suggest running related tests |
 | `change-suggest.cjs` | Informational | Suggest related actions |
 
-### Agents (4 included)
+### Agents (5 included)
 
 | Agent | Role |
 |-------|------|
@@ -82,11 +105,13 @@ Copy `docs/SPEC-TEMPLATE.md` to `docs/SPEC-API-SURFACE.md` (or whatever fits), f
 | `drift-detector` | Compare SPEC docs against codebase reality |
 | `code-reviewer` | Quality, security, and best practices review |
 | `security-auditor` | OWASP-focused vulnerability detection |
+| `consistency-reviewer` | Terminology, voice, and structural consistency |
 
-### Skills (3 included)
+### Skills (4 included)
 
 | Command | What It Does |
 |---------|--------------|
+| `/coherence` | Interactive setup wizard — generate customized guardrails |
 | `/check-drift` | Invoke drift detector, compare specs against code |
 | `/check-architecture` | Compliance review of staged changes or a path |
 | `/test` | Run tests with flexible scope control |
